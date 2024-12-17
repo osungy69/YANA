@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "SNS 확장 프로그램",
+  "version": "1.0",
+  "description": "같은 페이지를 보고 있는 사람들과 채팅하고 프로필을 볼 수 있는 확장 프로그램",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://*/*"  // 모든 웹페이지 접근
+  ],
+  "background": {
+    "service_worker": "background.js" // 백그라운드 작업을 위한 파일
+  },
+  "action": {
+    "default_popup": "popup.html", // 확장 프로그램 버튼 클릭 시 뜨는 UI
+    "default_icon": "icons/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],  // 모든 웹페이지에 삽입
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

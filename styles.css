@@ -1,0 +1,5 @@
+#chat-box {
+  width: 300px;
+  height: 400px;
+  overflow-y: auto;
+}
