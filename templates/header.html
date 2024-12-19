@@ -1,12 +1,20 @@
-
-    <div class="YANA_header">
-        <div>
-            <h1 class="YANA_logo">YANA</h1>
-        </div>
-        <div>
-            <span>nav1</span>
-            <span>nav2</span>
-            <span>nav3</span>
-            <span>nav4</span>
-        </div>
+<div class="YANA_header">
+    <div>
+        <h1 class="YANA_logo">YANA</h1>
     </div>
+    <div>
+        <span>nav1</span>
+        <span>nav2</span>
+        <span>nav3</span>
+        {% if not user.is_authenticated %}
+        <!-- Login 버튼 -->
+        <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class="btn btn-primary">Login</a>
+        {% else %}
+        <!-- Logout 버튼 -->
+        <form method="post" action="{% url 'accountapp:logout' %}?next={{ request.path }}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Logout</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
