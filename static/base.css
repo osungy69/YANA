@@ -1,0 +1,17 @@
+.YANA_logo {
+    font-family: 'Lobster', cursive;
+}
+
+.YANA_footer_button {
+    font-size: .6rem;
+}
+
+.YANA_footer {
+    text-align:center;
+    margin-top: 2rem;
+}
+
+.YANA_header {
+    text-align:center;
+    margin: 2rem 0;
+}
