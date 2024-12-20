@@ -6,8 +6,9 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView
 
+from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
 
 
@@ -55,3 +56,18 @@ class CustomLoginView(LoginView):
             return redirect(reverse_lazy('accountapp:hello_world'))
         # 비로그인 상태라면 원래의 LoginView 동작 수행
         return super().dispatch(request, *args, **kwargs)
+
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user'
+    template_name = 'accountapp/detail.html'
+
+class AccountUpdateView(UpdateView):
+    model = User
+    form_class = AccountUpdateForm
+    success_url = reverse_lazy('accountapp:hello_world')
+    template_name = 'accountapp/update.html'
+
+    def get_object(self, queryset=None):
+        # 현재 로그인한 사용자를 반환 (또는 적절한 사용자 반환)
+        return self.request.user
