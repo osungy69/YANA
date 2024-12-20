@@ -8,16 +8,23 @@
         <span>nav3</span>
         {% if not user.is_authenticated %}
         <!-- Login 버튼 -->
-        <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class="btn btn-primary">Login</a>
+        <a href="{% url 'accountapp:login' %}?next={{ request.path }}">
+            <span>Login</span>
+        </a>
+
+        <a href="{% url 'accountapp:create' %}">
+            <span>SignUp</span>
+        </a>
+
         {% else %}
         <!-- Logout 버튼 -->
         <a href="{% url 'accountapp:detail' pk=user.pk %}">
             <span>MyPage</span>
         </a>
 
-        <form method="post" action="{% url 'accountapp:logout' %}?next={{ request.path }}">
+        <form method="post" action="{% url 'accountapp:logout' %}?next={{ request.path }}" class="inline-form">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Logout</button>
+            <button type="submit" class="custom-button">Logout</button>
         </form>
         {% endif %}
     </div>

@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
@@ -71,3 +71,8 @@ class AccountUpdateView(UpdateView):
     def get_object(self, queryset=None):
         # 현재 로그인한 사용자를 반환 (또는 적절한 사용자 반환)
         return self.request.user
+
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('accountapp:login')
+    template_name = 'accountapp/delete.html'

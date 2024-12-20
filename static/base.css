@@ -15,3 +15,23 @@
     text-align:center;
     margin: 2rem 0;
 }
+
+.custom-button {
+    all: unset; /* 기본 스타일 제거 */
+    cursor: pointer; /* 클릭 가능 상태 유지 */
+    color: blue; /* 텍스트 색상 */
+    text-decoration: underline; /* 링크처럼 보이게 */
+    font-size: inherit; /* 부모 폰트 크기 유지 */
+}
+
+.inline-form {
+    display: inline; /* form을 인라인 요소로 변경 */
+}
+
+a, .custom-button {
+    text-decoration: none; /* 기본 상태에서 밑줄 제거 */
+}
+
+a:hover, .custom-button:hover {
+    text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
+}
