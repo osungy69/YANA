@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
@@ -6,26 +7,33 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from accountapp.decorators import account_ownership_required
 from accountapp.forms import AccountUpdateForm
 from accountapp.models import HelloWorld
 
 
+has_ownership = [account_ownership_required, login_required]
+
 def hello_world(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
 
-    if request.method == "POST":
+            temp = request.POST.get('hello_world_input')
 
-        temp = request.POST.get('hello_world_input')
+            new_hello_world = HelloWorld()
+            new_hello_world.text = temp
+            new_hello_world.save()
 
-        new_hello_world = HelloWorld()
-        new_hello_world.text = temp
-        new_hello_world.save()
+            return HttpResponseRedirect(reverse('accountapp:hello_world'))
+        else:
+            hello_world_list = HelloWorld.objects.all()
+            return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
 
-        return HttpResponseRedirect(reverse('accountapp:hello_world'))
     else:
-        hello_world_list = HelloWorld.objects.all()
-        return render(request, 'accountapp/hello_world.html', context={'hello_world_list': hello_world_list})
+        return HttpResponseRedirect(reverse('accountapp:login'))
 
 
 class AccountCreateView(CreateView):
@@ -57,22 +65,27 @@ class CustomLoginView(LoginView):
         # 비로그인 상태라면 원래의 LoginView 동작 수행
         return super().dispatch(request, *args, **kwargs)
 
+
 class AccountDetailView(DetailView):
     model = User
     context_object_name = 'target_user'
     template_name = 'accountapp/detail.html'
 
+
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView):
     model = User
+    context_object_name = 'target_user'
     form_class = AccountUpdateForm
     success_url = reverse_lazy('accountapp:hello_world')
     template_name = 'accountapp/update.html'
 
-    def get_object(self, queryset=None):
-        # 현재 로그인한 사용자를 반환 (또는 적절한 사용자 반환)
-        return self.request.user
 
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
+    context_object_name = 'target_user'
     success_url = reverse_lazy('accountapp:login')
     template_name = 'accountapp/delete.html'
