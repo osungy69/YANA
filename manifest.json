@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "SNS 확장 프로그램",
+  "name": "YANA",
   "version": "1.0",
   "description": "같은 페이지를 보고 있는 사람들과 채팅하고 프로필을 볼 수 있는 확장 프로그램",
   "permissions": [
