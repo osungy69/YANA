@@ -30,10 +30,21 @@
 
 a, .custom-button {
     text-decoration: none; /* 기본 상태에서 밑줄 제거 */
+    color: black;
 }
 
 a:hover, .custom-button:hover {
-    text-decoration: underline; /* 마우스를 올렸을 때 밑줄 추가 */
+    /*text-decoration: underline; !* 마우스를 올렸을 때 밑줄 추가 *!*/
+    color: black;
+}
+
+.YANA_header_nav {
+    margin: 0 0.5rem;
+}
+
+
+.YANA_header_navbar {
+    margin: 1rem 0;
 }
 
 @media screen and (max-width:500px) {
