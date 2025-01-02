@@ -20,13 +20,13 @@ has_ownership = [account_ownership_required, login_required]
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('home')
     template_name = 'accountapp/create.html'
 
     def dispatch(self, request, *args, **kwargs):
         # 로그인된 상태라면 기본 경로로 리디렉션
         if request.user.is_authenticated:
-            return redirect(reverse_lazy('accountapp:hello_world'))
+            return redirect(reverse_lazy('home'))
         # 비로그인 상태라면 원래의 LoginView 동작 수행
         return super().dispatch(request, *args, **kwargs)
 
@@ -36,13 +36,13 @@ class CustomLoginView(LoginView):
         redirect_to = self.request.GET.get('next')
         # next가 로그인 페이지라면 기본 경로로 리디렉션
         if redirect_to == reverse_lazy('accountapp:login'):
-            return reverse_lazy('accountapp:hello_world')
-        return redirect_to or reverse_lazy('accountapp:hello_world')
+            return reverse_lazy('home')
+        return redirect_to or reverse_lazy('home')
 
     def dispatch(self, request, *args, **kwargs):
         # 로그인된 상태라면 기본 경로로 리디렉션
         if request.user.is_authenticated:
-            return redirect(reverse_lazy('accountapp:hello_world'))
+            return redirect(reverse_lazy('home'))
         # 비로그인 상태라면 원래의 LoginView 동작 수행
         return super().dispatch(request, *args, **kwargs)
 
@@ -65,7 +65,7 @@ class AccountUpdateView(UpdateView):
     model = User
     context_object_name = 'target_user'
     form_class = AccountUpdateForm
-    success_url = reverse_lazy('accountapp:hello_world')
+    success_url = reverse_lazy('home')
     template_name = 'accountapp/update.html'
 
 
