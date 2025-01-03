@@ -19,8 +19,6 @@ import os
 # Set the project base directory
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-print("BASE_DIR:", BASE_DIR)
-
 
 # Application definition
 

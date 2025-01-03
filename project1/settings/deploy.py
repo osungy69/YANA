@@ -8,7 +8,7 @@ env = environ.Env(
 )
 
 # Take environment variables from .env file
-env.read_env(
+environ.Env.read_env(
     env_file=os.path.join(BASE_DIR, '.env')
 )
 
