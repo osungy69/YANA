@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mariadb",
+        "ENGINE": "django.db.backends.mysql",
         "NAME": "django",
         "USER": "django",
         "PASSWORD": "password1234",
