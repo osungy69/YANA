@@ -1,6 +1,6 @@
 from .base import *
 
-import os, environ
+import environ
 
 env = environ.Env(
     # set casting, default value
@@ -8,8 +8,8 @@ env = environ.Env(
 )
 
 # Take environment variables from .env file
-environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, '../../.env')
+env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
 )
 
 
