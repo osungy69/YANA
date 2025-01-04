@@ -2,7 +2,7 @@ FROM python:3.10
 
 WORKDIR /home/
 
-RUN echo "testing3"
+RUN echo "testing7"
 
 RUN git clone https://github.com/osungy69/project1.git
 
