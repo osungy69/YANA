@@ -14,7 +14,7 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 
-import os
+import os, environ
 
 # Set the project base directory
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
